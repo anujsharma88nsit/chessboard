@@ -2,17 +2,13 @@ package chessboard.evaluation.classes;
 
 import java.util.ArrayList;
 import java.util.List;
-import static chessboard.evaluation.constants.Constants.*;
 
 import chessboard.evaluation.interfaces.Piece;
 
 public class King implements Piece{
 
 	@Override
-	public List<String> getAllPossibleNextPositions(String startingPosition) {
-		int row = Integer.valueOf(startingPosition.split(SEPARATOR_COMMA)[0]);
-		int column = Integer.valueOf(startingPosition.split(SEPARATOR_COMMA)[1]);
-		
+	public List<String> getAllPossibleNextPositions(int row, int column) {
 		List<String> newPositions = new ArrayList<String>();
 		
 		if(row==0) {

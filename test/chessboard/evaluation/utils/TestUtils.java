@@ -19,16 +19,24 @@ public class TestUtils {
 	}
 	
 	@Test
-	public void testTransformStartingPosition() {
-		assertTrue("4,0".equals(Utils.transformStartingPosition("A5")));
-		assertTrue("7,2".equals(Utils.transformStartingPosition("C8")));
-		assertFalse("6,4".equals(Utils.transformStartingPosition("D6")));
-		assertFalse("1,6".equals(Utils.transformStartingPosition("F1")));
+	public void testExtractStartingRowFromPosition() {
+		assertTrue(4 == Utils.extractStartingRowFromPosition("A5"));
+		assertTrue(7 == Utils.extractStartingRowFromPosition("C8"));
+		assertFalse(6 == Utils.extractStartingRowFromPosition("D6"));
+	}
+	
+	@Test
+	public void testExtractStartingColumnFromPosition() {
+		assertTrue(0 == Utils.extractStartingColumnFromPosition("A5"));
+		assertTrue(2 == Utils.extractStartingColumnFromPosition("C8"));
+		assertFalse(1 == Utils.extractStartingColumnFromPosition("F1"));
 	}
 	
 	@Test
 	public void testTransformNextPositions() {
 		List<String> nextPositions = new ArrayList<String>();
+		assertTrue("".equals(Utils.transformNextPositions(null)));
+		assertTrue("".equals(Utils.transformNextPositions(nextPositions)));
 		nextPositions.add("4,0");
 		nextPositions.add("6,7");
 		nextPositions.add("3,1");

@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import chessboard.evaluation.classes.Bishop;
 import chessboard.evaluation.classes.King;
+import chessboard.evaluation.classes.Pawn;
+import chessboard.evaluation.classes.Queen;
+import chessboard.evaluation.classes.Rook;
 import chessboard.evaluation.enums.PieceType;
 import chessboard.evaluation.interfaces.Piece;
 
@@ -27,24 +31,44 @@ public class Main {
 			if(Utils.isValidInput(input)) {
 				String strings[] = input.split(SEPARATOR_SPACE);
 				String pieceInput = strings[0];
-				String startingPosition = Utils.transformStartingPosition(strings[1]);
+				int startingRow = Utils.extractStartingRowFromPosition(strings[1]);
+				int startingColumn = Utils.extractStartingColumnFromPosition(strings[1]);
 				
 				Piece piece = null;
 				List<String> nextPossiblePositions = new ArrayList<String>();
 				if(PieceType.KING.getValue().equals(pieceInput)) {
 					piece = new King();
 				}
-				/*
-				 * else if("Queen".equals(pieceInput)) { piece = new King(); } else
-				 * if("Bishop".equals(pieceInput)) { piece = new King(); } else
+				else if(PieceType.QUEEN.getValue().equals(pieceInput)) 
+				{ 
+					piece = new Queen(); 
+				} 
+				else if(PieceType.PAWN.getValue().equals(pieceInput)) 
+				{ 
+					piece = new Pawn(); 
+				}
+				else if(PieceType.BISHOP.getValue().equals(pieceInput)) 
+				{ 
+					piece = new Bishop(); 
+				} 
+				else if(PieceType.ROOK.getValue().equals(pieceInput)) 
+				{ 
+					piece = new Rook(); 
+				}
+				/*else
 				 * if("Horse".equals(pieceInput)) { piece = new King(); } else
-				 * if("Rook".equals(pieceInput)) { piece = new King(); } else
-				 * if("Pawn".equals(pieceInput)) { piece = new King(); }
+				 *  else
+				 * 
 				 */
-				nextPossiblePositions =  piece.getAllPossibleNextPositions(startingPosition);
+				nextPossiblePositions =  piece.getAllPossibleNextPositions(startingRow, startingColumn);
 				String transformedNextPossiblePositions = Utils.transformNextPositions(nextPossiblePositions);
 				
-				System.out.println(pieceInput + " placed initially at " + strings[1] + ", can move in these positions: " + transformedNextPossiblePositions);
+				if(!Utils.isEmpty(transformedNextPossiblePositions)) {
+					System.out.println(pieceInput + " placed initially at " + strings[1] + ", can move in these positions: " + transformedNextPossiblePositions);
+				}
+				else {
+					System.out.println(pieceInput + " placed initially at " + strings[1] + ", does not have any next position to move to");
+				}
 				System.out.println("Do you want to continue? (n and then Enter to exit OR any other key and then Enter to continue)");
 				String confirmation = scanner.nextLine();
 				if(NO.equals(confirmation)) {

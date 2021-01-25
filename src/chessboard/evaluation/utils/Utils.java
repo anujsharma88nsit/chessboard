@@ -8,14 +8,18 @@ import chessboard.evaluation.enums.PieceType;
 
 public class Utils {
 	
-	public static String transformStartingPosition(String position) {
+	public static int extractStartingRowFromPosition(String position) {
 		char rowNumber = position.charAt(1);
 		int transformedRowNumber = rowNumber - 49;
 		
+		return transformedRowNumber;
+	}
+	
+	public static int extractStartingColumnFromPosition(String position) {
 		char columnNumber = position.charAt(0);
 		int transformedColumnNumber = columnNumber - 65;
 		
-		return transformedRowNumber + COMMA + transformedColumnNumber;
+		return transformedColumnNumber;
 	}
 
 	public static boolean isValidInput(String input) {
@@ -54,7 +58,7 @@ public class Utils {
 		if(!(col >= 65 && col <= 72)) {
 			return false;
 		}
-		if(!(row >= 48 && row <= 55)) {
+		if(!(row > 48 && row <= 56)) {
 			return false;
 		}
 		
@@ -76,6 +80,9 @@ public class Utils {
 	}
 	
 	public static String transformNextPositions(List<String> nextPositions) {
+		if(nextPositions==null || nextPositions.size()==0) {
+			return EMPTY_STRING;
+		}
 		StringBuilder nextPositionsString = new StringBuilder("");
 		for(String nextPosition: nextPositions) {
 			String[] strings = nextPosition.split(SEPARATOR_COMMA);
