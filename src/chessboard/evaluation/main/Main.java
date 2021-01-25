@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import chessboard.evaluation.classes.Bishop;
+import chessboard.evaluation.classes.Horse;
 import chessboard.evaluation.classes.King;
 import chessboard.evaluation.classes.Pawn;
 import chessboard.evaluation.classes.Queen;
@@ -55,11 +56,11 @@ public class Main {
 				{ 
 					piece = new Rook(); 
 				}
-				/*else
-				 * if("Horse".equals(pieceInput)) { piece = new King(); } else
-				 *  else
-				 * 
-				 */
+				else if(PieceType.HORSE.getValue().equals(pieceInput)) 
+				{
+					piece = new Horse(); 
+				}
+				
 				nextPossiblePositions =  piece.getAllPossibleNextPositions(startingRow, startingColumn);
 				String transformedNextPossiblePositions = Utils.transformNextPositions(nextPossiblePositions);
 				
