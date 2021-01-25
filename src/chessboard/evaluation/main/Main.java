@@ -11,6 +11,7 @@ import chessboard.evaluation.classes.Pawn;
 import chessboard.evaluation.classes.Queen;
 import chessboard.evaluation.classes.Rook;
 import chessboard.evaluation.enums.PieceType;
+import chessboard.evaluation.factories.PieceFactory;
 import chessboard.evaluation.interfaces.Piece;
 
 import static chessboard.evaluation.constants.Constants.*;
@@ -25,6 +26,7 @@ public class Main {
 
 	private static void takeInput() {
 		Scanner scanner = new Scanner(System.in);
+		PieceFactory factory = new PieceFactory();
 		while (true) {
 			System.out.print("Input please -> ");
 			String input = scanner.nextLine();
@@ -35,31 +37,8 @@ public class Main {
 				int startingRow = Utils.extractStartingRowFromPosition(strings[1]);
 				int startingColumn = Utils.extractStartingColumnFromPosition(strings[1]);
 				
-				Piece piece = null;
+				Piece piece = factory.getPiece(pieceInput);
 				List<String> nextPossiblePositions = new ArrayList<String>();
-				if(PieceType.KING.getValue().equals(pieceInput)) {
-					piece = new King();
-				}
-				else if(PieceType.QUEEN.getValue().equals(pieceInput)) 
-				{ 
-					piece = new Queen(); 
-				} 
-				else if(PieceType.PAWN.getValue().equals(pieceInput)) 
-				{ 
-					piece = new Pawn(); 
-				}
-				else if(PieceType.BISHOP.getValue().equals(pieceInput)) 
-				{ 
-					piece = new Bishop(); 
-				} 
-				else if(PieceType.ROOK.getValue().equals(pieceInput)) 
-				{ 
-					piece = new Rook(); 
-				}
-				else if(PieceType.HORSE.getValue().equals(pieceInput)) 
-				{
-					piece = new Horse(); 
-				}
 				
 				nextPossiblePositions =  piece.getAllPossibleNextPositions(startingRow, startingColumn);
 				String transformedNextPossiblePositions = Utils.transformNextPositions(nextPossiblePositions);
